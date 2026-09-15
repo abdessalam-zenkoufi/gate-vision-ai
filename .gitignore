@@ -1,0 +1,21 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+venv/
+env/
+
+# Runtime Data & Logs (Do not push personal face data)
+students_data/allowed/*
+!students_data/allowed/.gitkeep
+students_data/banned/*
+!students_data/banned/.gitkeep
+logs/images/*
+!logs/images/.gitkeep
+logs/access_logs.csv
+
+# OS
+Thumbs.db
+.DS_Store

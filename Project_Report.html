@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive PW Report - Image Analysis & Processing 2</title>
+    <style>
+        :root {
+            --primary-color: #1a2a6c;
+            --secondary-color: #b21f1f;
+            --accent-color: #fdbb2d;
+            --bg-color: #f8f9fa;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 60px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 4px solid var(--primary-color);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .student-info {
+            font-size: 1.4em;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-left: 6px solid var(--secondary-color);
+            padding-left: 20px;
+            margin-top: 50px;
+            background: #fdf2f2;
+            padding: 12px 20px;
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            font-size: 1.4em;
+        }
+
+        h4 {
+            color: #d35400;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        p {
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        /* Code Block Styling */
+        pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 1em;
+            border-left: 5px solid var(--accent-color);
+            margin: 20px 0;
+            text-align: left;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            line-height: 1.5;
+        }
+
+        .comment {
+            color: #75715e;
+            font-style: italic;
+        }
+
+        .func {
+            color: #a6e22e;
+        }
+
+        .keyword {
+            color: #f92672;
+        }
+
+        .string {
+            color: #e6db74;
+        }
+
+        .var {
+            color: #66d9ef;
+        }
+
+        .explanation-box {
+            background: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 25px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .explanation-box strong {
+            color: #2980b9;
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .matrix-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            background: #fdfefe;
+            padding: 20px;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+        }
+
+        .matrix {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            background: white;
+            padding: 15px;
+            border: 2px solid #333;
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+            font-size: 1.1em;
+        }
+
+        .matrix::before,
+        .matrix::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            bottom: -2px;
+            width: 10px;
+            border: 2px solid #333;
+        }
+
+        .matrix::before {
+            left: -10px;
+            border-right: 0;
+        }
+
+        .matrix::after {
+            right: -10px;
+            border-left: 0;
+        }
+
+        .tech-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tech-list li {
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.1em;
+        }
+
+        .tech-list li::before {
+            content: '✔';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .setup-box {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 30px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            margin-top: 20px;
+            border-left: 10px solid var(--accent-color);
+            line-height: 1.8;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        .setup-box b {
+            color: var(--accent-color);
+            font-size: 1.1em;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background: #fdbb2d;
+            color: #1a2a6c;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+            font-size: 1.05em;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div style="font-weight: 600; color: #7f8c8d; letter-spacing: 2px;">IMAGE ANALYSIS AND PROCESSING 2</div>
+            <h1>Comprehensive Practical Work (PW) Report</h1>
+            <p>Building an Integrated Smart System from Scratch: Face Detection, Biometric Matching, and Edge Extraction
+                using Mathematical Matrices</p>
+            <div class="student-info">Prepared by: Abdessalam Zenkoufi</div>
+        </header>
+
+        <section>
+            <h2>1. Architectural Setup & Automated Environment Building</h2>
+            <p>To ensure the system operates as a true standalone program without manual user intervention, the first
+                challenge was ensuring the file infrastructure exists before running any algorithm. The program is
+                designed to automatically check and build its directories.</p>
+
+            <pre><code><span class="comment"># 1. Verification and programmatic creation of directories if they don't exist</span>
+os.<span class="func">makedirs</span>(<span class="string">"students_data/allowed"</span>, exist_ok=<span class="keyword">True</span>)
+os.<span class="func">makedirs</span>(<span class="string">"students_data/banned"</span>, exist_ok=<span class="keyword">True</span>)
+os.<span class="func">makedirs</span>(<span class="string">"assets"</span>, exist_ok=<span class="keyword">True</span>)
+os.<span class="func">makedirs</span>(<span class="string">"logs/images"</span>, exist_ok=<span class="keyword">True</span>)
+
+<span class="comment"># 2. Initialization of the CSV log file and injecting core headers</span>
+csv_file = <span class="string">"logs/access_logs.csv"</span>
+<span class="keyword">if not</span> os.path.<span class="func">exists</span>(csv_file):
+    <span class="keyword">with</span> <span class="func">open</span>(csv_file, mode=<span class="string">'w'</span>, newline=<span class="string">''</span>, encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> file:
+        writer = csv.<span class="func">writer</span>(file)
+        writer.<span class="func">writerow</span>([<span class="string">"Timestamp"</span>, <span class="string">"Name"</span>, <span class="string">"Status"</span>, <span class="string">"Orig_Img"</span>, <span class="string">"Sobel_Img"</span>, <span class="string">"Canny_Img"</span>, <span class="string">"Laplacian_Img"</span>])</code></pre>
+
+            <div class="explanation-box">
+                <strong>Understanding the Architectural Code Step-by-Step:</strong>
+                <p><strong>Why use `os.makedirs`?</strong> In professional programming, you cannot assume the user has
+                    created the folders. This function builds the entire directory tree. The most important feature is
+                    the <code>exist_ok=True</code> parameter, a smart condition telling Python: "If the folder already
+                    exists, do not throw an error; safely bypass it."</p>
+                <p><strong>CSV Initialization:</strong> We programmed the system to verify (<code>os.path.exists</code>)
+                    if the log file exists. If not, it opens it in write mode (<code>'w'</code>) and initializes it with
+                    <code>'utf-8'</code> encoding to support non-Latin names. Then, we use <code>writer.writerow</code>
+                    to inject the "column headers" in the first row, organizing the data (Timestamp, Name, Status, Edge
+                    Image Paths).
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Advanced Engineering Solutions: Overcoming Windows Path Constraints</h2>
+            <p>In image processing, the <code>OpenCV</code> library is the primary standard, but since it is built in
+                C++, it faces a critical flaw in Windows: <strong>Complete failure to read or save images if the file
+                    path contains non-Latin characters (like Arabic names).</strong> To solve this, we programmed custom
+                functions to bypass the traditional reading method.</p>
+
+            <pre><code><span class="comment"># ================= Custom functions to solve the Arabic paths issue in OpenCV =================</span>
+<span class="keyword">def</span> <span class="func">imread_utf8</span>(filename):
+    <span class="comment"># 1. Read the file from disk as a raw byte stream using Numpy</span>
+    im_buf_arr = np.<span class="func">fromfile</span>(filename, dtype=np.uint8)
+    <span class="comment"># 2. Decode the bytes and convert them into a BGR color matrix via OpenCV</span>
+    <span class="keyword">return</span> cv2.<span class="func">imdecode</span>(im_buf_arr, cv2.IMREAD_COLOR)
+
+<span class="keyword">def</span> <span class="func">imwrite_utf8</span>(filename, img):
+    <span class="comment"># 1. Encode the image matrix (img) into a JPG file format in virtual memory</span>
+    is_success, im_buf_arr = cv2.<span class="func">imencode</span>(<span class="string">".jpg"</span>, img)
+    <span class="keyword">if</span> is_success:
+        <span class="comment"># 2. Write the encoded bytes directly to the hard drive path</span>
+        im_buf_arr.<span class="func">tofile</span>(filename)</code></pre>
+
+            <div class="explanation-box">
+                <strong>The Engineering Genius Behind This Solution:</strong>
+                <p>The default <code>cv2.imread</code> function tries to open the file path directly and fails because
+                    it does not understand UTF-8 encoding in Windows. Therefore, we <strong>tricked the system</strong>
+                    by utilizing the <code>Numpy</code> library (which supports UTF-8).</p>
+                <p>We used Numpy to read the file as an array of raw numbers (a 1D <code>uint8</code> byte array). Now,
+                    we have the image data in RAM rather than a path on the disk. Finally, we pass this data to the
+                    <code>cv2.imdecode</code> function to translate these numbers into a visible image matrix (BGR color
+                    matrix). We applied the same reverse logic for the saving (writing) process.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. Facial Recognition and Biometric Comparison Pipeline</h2>
+            <p>This pipeline executes in Real-Time during camera simulation. The system receives video frames, passes
+                them through an AI model for face detection, extracts the identity, and compares it with the database.
+            </p>
+
+            <h3>Phase A: Face Detection</h3>
+            <pre><code><span class="comment"># Excerpt from the update_video_feed function responsible for live streaming</span>
+<span class="keyword">if</span> self.is_scanning:
+    <span class="comment"># 1. Scale down the frame to a quarter to accelerate processing</span>
+    small_frame = cv2.<span class="func">resize</span>(frame, (<span class="var">0</span>, <span class="var">0</span>), fx=<span class="var">0.25</span>, fy=<span class="var">0.25</span>)
+    
+    <span class="comment"># 2. Convert colors because the face library uses RGB, not BGR</span>
+    rgb_small_frame = cv2.<span class="func">cvtColor</span>(small_frame, cv2.COLOR_BGR2RGB)
+    
+    <span class="comment"># 3. Find the face coordinates in the image (top, right, bottom, left)</span>
+    face_locations = face_recognition.<span class="func">face_locations</span>(rgb_small_frame)</code></pre>
+
+            <div class="explanation-box">
+                <strong>Explanation of Detection and Optimization:</strong>
+                <p>The most crucial line here is <code>cv2.resize</code>. Camera resolution is usually high (e.g.,
+                    1080x1920), which is too computationally expensive to process 30 times a second (30 FPS). By
+                    multiplying the dimensions by <code>0.25</code>, we reduce the image area by 75%, making the
+                    detection instantaneous without freezing the machine. Afterward, <code>face_locations</code> uses
+                    the HOG (Histogram of Oriented Gradients) algorithm to search for human face-like shapes and returns
+                    the four bounding box coordinates.</p>
+            </div>
+
+            <h3>Phase B: Deep Embedding and Matching</h3>
+            <pre><code><span class="keyword">if</span> face_locations:
+    <span class="comment"># 1. Convert the cropped face image into a unique numerical vector (128 numbers)</span>
+    face_encodings = face_recognition.<span class="func">face_encodings</span>(rgb_small_frame, face_locations)
+    encoding = face_encodings[<span class="var">0</span>] 
+    
+    <span class="comment"># 2. Compare the extracted vector with the allowed persons database</span>
+    allowed_matches = face_recognition.<span class="func">compare_faces</span>(self.allowed_encodings, encoding, tolerance=<span class="var">0.5</span>)
+    
+    <span class="keyword">if True in</span> allowed_matches:
+        <span class="comment"># Extract the person's name if a match is found</span>
+        name = self.allowed_names[allowed_matches.<span class="func">index</span>(<span class="keyword">True</span>)]
+        action = <span class="string">"allowed"</span></code></pre>
+
+            <div class="explanation-box">
+                <strong>How does the computer understand and match faces?</strong>
+                <p>The <code>face_encodings</code> function does not save a "picture". It uses a Deep Neural Network
+                    (ResNet) to identify 68 key points on the face (eyes, nose, chin) and transforms the distances
+                    between these points into a <strong>128-dimensional vector (an array of 128 decimal
+                        numbers)</strong>. This vector is your facial fingerprint.</p>
+                <p>The <code>compare_faces</code> function takes your current fingerprint and compares it to all
+                    previously saved fingerprints in the <code>self.allowed_encodings</code> list. The comparison is
+                    done using simple math called <strong>"Euclidean Distance"</strong>, calculating the distance
+                    between the two vectors in digital space. The <code>tolerance=0.5</code> parameter is the threshold;
+                    if the distance between the two fingerprints is less than 0.5 (indicating a very high match rate),
+                    the function returns <code>True</code> and the system recognizes you.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Mathematical Morphological Analysis: Edge Extraction via Matrices (Filters & Kernels)</h2>
+            <p>This is the part most related to the "Image Analysis" module. After identifying the face, we crop it,
+                convert it to grayscale, and pass it through 3 classic mathematical algorithms to extract its structural
+                anatomy and save it in security logs via the <code>save_log_and_filters</code> function.</p>
+
+            <h3>First: Face Preparation (Cropping & Grayscale)</h3>
+            <pre><code><span class="comment"># Extract the face region from the frame based on coordinates (top, bottom, left, right)</span>
+face_crop = frame[top:bottom, left:right]
+<span class="comment"># Convert the cropped face to a 2D matrix (grayscale) to facilitate calculations</span>
+gray = cv2.<span class="func">cvtColor</span>(face_crop, cv2.COLOR_BGR2GRAY)</code></pre>
+
+            <h3>Second: Sobel Filter - First Derivative for Edges</h3>
+            <p>The Sobel filter looks for rapid changes in pixel intensity. The faster the transition from dark to
+                light, the higher the derivative value, indicating an "edge" (e.g., the edge of a nose or glasses).</p>
+            <div class="matrix-container">
+                <div>
+                    <strong>Horizontal Derivative Matrix (Gx):</strong><br>
+                    <div class="matrix">-1 &nbsp; 0 &nbsp; 1<br>-2 &nbsp; 0 &nbsp; 2<br>-1 &nbsp; 0 &nbsp; 1</div>
+                </div>
+                <div>
+                    <strong>Vertical Derivative Matrix (Gy):</strong><br>
+                    <div class="matrix">1 &nbsp; 2 &nbsp; 1<br>0 &nbsp; 0 &nbsp; 0<br>-1 &nbsp; -2 &nbsp; -1</div>
+                </div>
+            </div>
+            <pre><code><span class="comment"># Apply matrices to the grayscale image</span>
+sobelx = cv2.<span class="func">Sobel</span>(gray, cv2.CV_64F, <span class="var">1</span>, <span class="var">0</span>, ksize=<span class="var">3</span>)
+sobely = cv2.<span class="func">Sobel</span>(gray, cv2.CV_64F, <span class="var">0</span>, <span class="var">1</span>, ksize=<span class="var">3</span>)
+
+<span class="comment"># Combine horizontal and vertical edges using the Pythagorean theorem (Magnitude)</span>
+sobel_combined = np.<span class="func">uint8</span>(np.<span class="func">absolute</span>(cv2.<span class="func">magnitude</span>(sobelx, sobely)))</code></pre>
+            <div class="explanation-box">
+                <strong>Why use `CV_64F` then return to `uint8`?</strong>
+                <p>When calculating derivatives (subtracting pixel values), we might get negative numbers (from a light
+                    pixel to a dark one). If we used the standard image data type <code>uint8</code> (0 to 255), any
+                    negative number would become zero, and we would lose the edge. Therefore, we tell OpenCV to store
+                    the result in <code>CV_64F</code> (floating-point numbers that support negatives). In the final
+                    line, we use <code>np.absolute</code> to convert negatives to positives, then return the image to
+                    <code>uint8</code> so our screens can display it correctly.
+                </p>
+            </div>
+
+            <h3>Third: Laplacian Operator - Second Derivative</h3>
+            <p>It doesn't just look for the edge, it looks for the "center of the edge". It is an Isotropic filter that
+                detects very sharp changes (like pores or moles) by measuring the second derivative.</p>
+            <div class="matrix-container">
+                <div class="matrix">0 &nbsp; 1 &nbsp; 0<br>1 &nbsp; -4 &nbsp; 1<br>0 &nbsp; 1 &nbsp; 0</div>
+            </div>
+            <pre><code><span class="comment"># Apply the Laplacian operator in a single step</span>
+laplacian = np.<span class="func">uint8</span>(np.<span class="func">absolute</span>(cv2.<span class="func">Laplacian</span>(gray, cv2.CV_64F)))</code></pre>
+
+            <h3>Fourth: Canny Edge Detection - The Most Powerful and Advanced</h3>
+            <p>The Canny algorithm is not just a single matrix; it is a full <strong>Pipeline consisting of 4 sequential
+                    filters</strong> working together to produce a perfect edge exactly one pixel wide.</p>
+            <pre><code><span class="comment"># Execute the Canny algorithm passing the lower (100) and upper (200) thresholds</span>
+canny = cv2.<span class="func">Canny</span>(gray, <span class="var">100</span>, <span class="var">200</span>)</code></pre>
+
+            <div class="explanation-box">
+                <strong>What happens inside that single `cv2.Canny` line?</strong>
+                <p>Although it is one line of code, the function performs four sequential mathematical operations in
+                    this hidden order:</p>
+                <ol>
+                    <li><strong>Gaussian Blur:</strong> First, the image is passed through a Gaussian filter to blur it
+                        slightly. The goal is to remove "Noise" so the algorithm doesn't falsely detect unimportant
+                        details as edges.</li>
+                    <li><strong>Gradient Calculation:</strong> It uses the <strong>Sobel</strong> algorithm internally
+                        to determine the edge strength and direction (vertical, horizontal, diagonal).</li>
+                    <li><strong>Non-Maximum Suppression:</strong> Here lies the magic of Canny! The algorithm scans the
+                        broad edge outlines and keeps only the strongest pixel, resulting in a sharp, thin edge exactly
+                        one pixel wide.</li>
+                    <li><strong>Hysteresis Thresholding:</strong> Here we use the numbers <code>100</code> and
+                        <code>200</code> passed to the function. Any edge stronger than 200 is considered a "Sure-edge".
+                        Any edge weaker than 100 is immediately discarded. Edges falling between 100 and 200 are kept
+                        <strong>only</strong> if they are spatially connected to a sure-edge; otherwise, they are
+                        discarded.
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. Directory Architecture and Log Management</h2>
+            <table>
+                <tr>
+                    <th>Component (Path)</th>
+                    <th>Role in the Analysis and Application Pipeline</th>
+                </tr>
+                <tr>
+                    <td><code>students_data/allowed/</code></td>
+                    <td>The physical folder containing images of authorized persons (Dataset).</td>
+                </tr>
+                <tr>
+                    <td><code>students_data/banned/</code></td>
+                    <td>The blacklist folder; any face recognized here triggers an audio alarm.</td>
+                </tr>
+                <tr>
+                    <td><code>logs/images/</code></td>
+                    <td>The image archive. For each entry, 4 images are saved (Original, Sobel, Laplacian, Canny).</td>
+                </tr>
+                <tr>
+                    <td><code>logs/access_logs.csv</code></td>
+                    <td>The precise text log: records the time, date, and status of every attempt.</td>
+                </tr>
+                <tr>
+                    <td><code>main_app.py</code></td>
+                    <td>The beating heart; connects the GUI to the OpenCV algorithms.</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. Deployment and Execution Guide</h2>
+            <p>We designed the system to be immediately usable on any new machine with a click of a button, by building
+                automated Batch Scripts that spare the user from typing complex CMD commands.</p>
+
+            <div class="setup-box">
+                <span class="status-badge">Automated Deployment Commands</span><br>
+                <b># 1. Automated Environment Setup & Library Installation:</b><br>
+                Double-click on the file <b>Setup_Environment.bat</b><br>
+                <i>(This file will automatically create the virtual environment <code>venv</code> and install all
+                    dependencies from <code>requirements.txt</code>. Executed only once when moving the project to a new
+                    machine).</i><br><br>
+
+                <b># 2. Launch the Main Application Interface:</b><br>
+                Double-click on the file <b>Run_with_Venv.bat</b><br>
+                <i>(Always use this file to access the system and open the Graphical User Interface).</i>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p>Module: Image Analysis and Processing 2 - 2026</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقرير العمل التطبيقي - تحليل ومعالجة الصور 2</title>
+    <style>
+        :root {
+            --primary-color: #1a2a6c;
+            --secondary-color: #b21f1f;
+            --accent-color: #fdbb2d;
+            --bg-color: #f8f9fa;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 60px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 4px solid var(--primary-color);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .student-info {
+            font-size: 1.4em;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-right: 6px solid var(--secondary-color);
+            padding-right: 20px;
+            margin-top: 45px;
+            background: #fdf2f2;
+            padding: 10px 20px;
+            border-left: none;
+        }
+
+        h3 {
+            color: var(--accent-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        .matrix-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            background: #fdfefe;
+            padding: 20px;
+            border: 1px dashed #ccc;
+        }
+
+        .matrix {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            background: white;
+            padding: 15px;
+            border: 2px solid #333;
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+            direction: ltr;
+        }
+
+        .matrix::before,
+        .matrix::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            bottom: -2px;
+            width: 10px;
+            border: 2px solid #333;
+        }
+
+        .matrix::before {
+            left: -10px;
+            border-right: 0;
+        }
+
+        .matrix::after {
+            right: -10px;
+            border-left: 0;
+        }
+
+        .tech-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tech-list li {
+            margin-bottom: 15px;
+            padding-right: 30px;
+            position: relative;
+        }
+
+        .tech-list li::before {
+            content: '✔';
+            position: absolute;
+            right: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .setup-box {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 25px;
+            border-radius: 8px;
+            font-family: 'Consolas', monospace;
+            margin-top: 20px;
+            border-right: 10px solid var(--accent-color);
+            direction: ltr;
+            text-align: left;
+        }
+
+        .setup-box b {
+            color: var(--accent-color);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: #fdbb2d;
+            color: #1a2a6c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: right;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <div style="font-weight: 600; color: #7f8c8d; letter-spacing: 2px;">الوحدة الأكاديمية: تحليل ومعالجة الصور 2
+                (Image Analysis and Processing 2)</div>
+            <h1>التقرير الشامل للعمل التطبيقي (PW)</h1>
+            <p>تنفيذ نظام مستقل للتعرف على الوجوه ومعالجة تدفق استخراج الحواف متعدد النواة</p>
+            <div class="student-info">إعداد الطالب: Abdessalam Zenkoufi</div>
+        </header>
+
+        <section>
+            <h2>1. الإطار المفاهيمي للعمل التطبيقي</h2>
+            <p>يوضح هذا العمل التطبيقي دمج <strong>الرؤية الحاسوبية</strong> مع <strong>التعلم الآلي</strong> لحل تحديات
+                تحديد الهوية في العالم الحقيقي. صُمم النظام لأداء <strong>التجزئة الدلالية (Semantic
+                    Segmentation)</strong> لاكتشاف الوجه، و<strong>التحليل الهيكلي (Structural Analysis)</strong>
+                لاستخراج الحواف لغرض التوثيق الأمني عالي الدقة. يركز المشروع على التعامل مع مصفوفات البكسل الخام
+                وتحويلها إلى توقيعات بيومترية مكونة من 128 بُعداً.</p>
+        </section>
+
+        <section>
+            <h2>2. التحليل التقني العميق: مسار التعرف على الوجوه</h2>
+            <p>تنقسم عملية تحديد الهوية البيومترية إلى أربع مراحل حاسمة، تستخدم كل منها تقنيات محددة لمعالجة الصور:</p>
+
+            <h3>أ. كشف الوجوه باستخدام HOG (Histogram of Oriented Gradients)</h3>
+            <p>قبل التعرف، يحدد النظام صندوق الإحاطة (Bounding Box) للوجه. يستخدم تقنية HOG للتركيز على الهيكل والشكل
+                بدلاً من اللون، عن طريق حساب اتجاه التدرج (Gradient Orientation) في أجزاء محددة من الصورة.</p>
+
+
+            <h3>ب. محاذاة الوجه ورسم المعالم (Landmark Mapping)</h3>
+            <p>يقوم محرك <strong>Dlib</strong> باكتشاف 68 معلمًا فريدًا (العينين، الحاجبين، الأنف، الفم). ومن خلال تطبيق
+                <strong>تحويل تآلفي هندسي (Affine Transformation)</strong>، يتم تدوير الوجه وتغيير حجمه بحيث تكون
+                المعالم دائمًا في نفس الموضع النسبي، مما يضمن الاتساق بغض النظر عن إمالة الرأس.
+            </p>
+
+
+            <h3>ج. التضمين العميق (توليد متجه 128-D)</h3>
+            <p>تقوم بنية الشبكة العصبية التلافيفية (ResNet) برسم خريطة للوجه المحاذى في <strong>فضاء فائق مكون من 128
+                    بُعدًا</strong>. يستخدم النظام <strong>المسافة الإقليدية (Euclidean Distance)</strong> لمقارنة هذه
+                المتجهات؛ حيث تشير المسافة الأقل من العتبة (مثلاً 0.6) إلى وجود تطابق.</p>
+        </section>
+
+        <section>
+            <h2>3. تحليل المورفولوجيا الرياضية: نواة كشف الحواف (Kernels)</h2>
+            <p>يتم استخراج المعلومات الهيكلية باستخدام نواة تلافيفية ثنائية الأبعاد (2D Convolutional Kernels)، والتي
+                تعمل كأقنعة تنزلق فوق الصورة لحساب قيم البكسل الجديدة بناءً على تغيرات الكثافة في الجوار.</p>
+
+            <h3>أولاً: مرشح سوبل (Sobel Filter) - تقريب التدرج</h3>
+            <p>يحسب عامل "سوبل" المشتق الأول للصورة في اتجاهين (رأسي وأفقي)، وهو ضروري لاكتشاف الخطوط الرئيسية لملامح
+                الوجه.</p>
+            <div class="matrix-container">
+                <div>
+                    <strong>Gx (القناع الأفقي):</strong><br>
+                    <div class="matrix">
+                        -1 &nbsp; 0 &nbsp; 1<br>
+                        -2 &nbsp; 0 &nbsp; 2<br>
+                        -1 &nbsp; 0 &nbsp; 1
+                    </div>
+                </div>
+                <div>
+                    <strong>Gy (القناع الرأسي):</strong><br>
+                    <div class="matrix">
+                        1 &nbsp; 2 &nbsp; 1<br>
+                        0 &nbsp; 0 &nbsp; 0<br>
+                        -1 &nbsp; -2 &nbsp; -1
+                    </div>
+                </div>
+            </div>
+
+            <h3>ثانياً: عامل لابلاس (Laplacian Operator) - المشتق الثاني</h3>
+            <p>مرشح <strong>متناحي (Isotropic)</strong> يستخدم لاكتشاف الحواف الدقيقة. يقيس المشتق من الدرجة الثانية
+                لتسليط الضوء على مناطق التغير السريع في كثافة الصورة.</p>
+            <div class="matrix-container">
+                <div>
+                    <strong>قناع لابلاس القياسي (3x3):</strong><br>
+                    <div class="matrix">
+                        0 &nbsp; 1 &nbsp; 0<br>
+                        1 &nbsp; -4 &nbsp; 1<br>
+                        0 &nbsp; 1 &nbsp; 0
+                    </div>
+                </div>
+            </div>
+
+            <h3>ثالثاً: كاشف حواف كاني (Canny) - مسار غير خطي</h3>
+            <p>خوارزمية متعددة المراحل تنتج حوافاً رقيقة ونظيفة مع تجاهل الضجيج، وتشمل:</p>
+            <ul class="tech-list">
+                <li><strong>التنعيم الغاوسي (Gaussian Smoothing):</strong> لإزالة الضجيج عالي التردد.</li>
+                <li><strong>قمع غير النهايات العظمى (Non-Maximum Suppression):</strong> لترقيق الحواف لتصبح بعرض بكسل
+                    واحد.</li>
+                <li><strong>عتبة الهيستيريس (Hysteresis Thresholding):</strong> لربط الحواف الضعيفة بالقوية.</li>
+            </ul>
+
+        </section>
+
+        <section>
+            <h2>4. استراتيجيات الهندسة والتحسين</h2>
+            <ul class="tech-list">
+                <li><strong>أخذ العينات الفرعية المكانية:</strong> تغيير حجم الإطارات بمعامل 0.25 لتقليل العمليات
+                    المصفوفية بنسبة 75% والحفاظ على الأداء اللحظي.</li>
+                <li><strong>إدارة الخيوط (Threads):</strong> فصل تدفق الفيديو عن الحلقة الرئيسية للواجهة الرسومية لمنع
+                    تجميد النظام أثناء الحسابات الثقيلة.</li>
+                <li><strong>عزل الذاكرة:</strong> تنفيذ <code>البيئات الافتراضية (VENV)</code> لضمان عدم تداخل المكتبات
+                    واستقرار النظام.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. بنية المجلدات</h2>
+            <table>
+                <tr>
+                    <th>المكون</th>
+                    <th>الدور في مسار تحليل الصور</th>
+                </tr>
+                <tr>
+                    <td><code>students_data/</code></td>
+                    <td>مجموعة بيانات الصور المحلية للمقارنة البيومترية.</td>
+                </tr>
+                <tr>
+                    <td><code>logs/images/</code></td>
+                    <td>الأرشيف التاريخي لنتائج استخراج الحواف الهيكلية المعالجة.</td>
+                </tr>
+                <tr>
+                    <td><code>main_app.py</code></td>
+                    <td>منطق التطوير المتكامل وواجهة OpenCV.</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2>6. دليل التنفيذ والتشغيل</h2>
+            <p>اتبع الإجراءات التالية لتشغيل النظام بشكل صحيح:</p>
+
+            <h3>أ. متطلبات النظام</h3>
+            <ul class="tech-list">
+                <li>بيئة Python (الإصدار 3.10، 3.11، أو 3.12).</li>
+                <li>كاميرا ويب (Webcam) فعالة للمحاكاة المباشرة.</li>
+            </ul>
+
+            <h3>ب. أوامر الإعداد والتشغيل</h3>
+            <div class="setup-box">
+                <span class="status-badge">DEPLOYMENT STEPS</span><br>
+                <b># 1. Install Required Libraries:</b><br>
+                pip install -r requirements.txt<br><br>
+
+                <b># 2. Run via VENV Mode:</b><br>
+                Execute <b>Run_with_Venv.bat</b><br><br>
+
+                <b># 3. Run via Global Mode:</b><br>
+                Execute <b>Run_Global_Python.bat</b>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p>Module: Image Analysis and Processing 2 - 2026</p>
+            <p>المؤلف: <strong>Abdessalam Zenkoufi</strong></p>
+        </div>
+    </div>
+
+</body>
+
+</html>
